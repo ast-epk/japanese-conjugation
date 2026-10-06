@@ -20,6 +20,7 @@ import {
 import { wordData } from "./wordData.js";
 import { CONJUGATION_TYPES, PARTS_OF_SPEECH } from "./constants.js";
 import { toggleDisplayNone, toggleBackgroundNone } from "./utils.js";
+import { eventBus } from "./eventBus.js";
 
 const isTouch = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
 document.getElementById("press-any-key-text").textContent = isTouch
@@ -1621,7 +1622,10 @@ export class MaxScoreObject {
 }
 
 function initApp() {
-	new ConjugationApp(wordData);
+	initPlugins();
+	const app = new ConjugationApp(wordData);
+
+	eventBus.emit("app:init", { app });
 }
 
 class ConjugationApp {
@@ -1676,6 +1680,23 @@ class ConjugationApp {
 		optionsMenuInit();
 	}
 
+	inputKeyPress(e) {
+		if (e.keyCode == "13") {
+		// ... existing answer checks ...
+		const inputWasCorrect = this.state.currentWord.conjugation.validAnswers.some(
+			(ans) => ans === inputValue
+		);
+
+		// Emit answer submission event
+		eventBus.emit("answer:submitted", {
+			word: this.state.currentWord,
+			userInput: inputValue,
+			isCorrect: inputWasCorrect
+		});
+
+		}
+	}
+
 	loadMainView() {
 		this.state.activeScreen = SCREENS.question;
 		document.getElementById("main-view").classList.add("question-screen");
@@ -1716,6 +1737,8 @@ class ConjugationApp {
 		if (!isTouch) {
 			mainInput.focus();
 		}
+
+		eventBus.emit("screen:changed", { screen: "question" });
 	}
 
 	// Handle generic keydown events that aren't targeting a specific element
@@ -1787,6 +1810,12 @@ class ConjugationApp {
 				this.state.currentWord.conjugation.validAnswers.some(
 					(e) => e == inputValue
 				);
+
+			eventBus.emit("answer:submitted", {
+				word: this.state.currentWord,
+				userInput: inputValue,
+				isCorrect: inputWasCorrect,
+			});
 
 			updateProbabilites(
 				this.state.currentWordList,
