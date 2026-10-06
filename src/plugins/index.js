@@ -24,7 +24,7 @@ function createPluginDock() {
 }
 
 const plugins = [
-	// new StatsPlugin(),
+	new StatsPlugin(),
 	// new AudioPlugin(),
 	// new AnkiExportPlugin(),
 ];
