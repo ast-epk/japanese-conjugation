@@ -21,6 +21,7 @@ import { wordData } from "./wordData.js";
 import { CONJUGATION_TYPES, PARTS_OF_SPEECH } from "./constants.js";
 import { toggleDisplayNone, toggleBackgroundNone } from "./utils.js";
 import { eventBus } from "./eventBus.js";
+import { initPlugins } from "./plugins/index.js";
 
 const isTouch = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
 document.getElementById("press-any-key-text").textContent = isTouch
