@@ -1,3 +1,4 @@
+import "./statsPlugin.css"
 import { statsManager } from "../statsManager.js";
 
 export class StatsPlugin {
@@ -18,24 +19,86 @@ export class StatsPlugin {
 	}
 
 	injectStatsButton(app) {
-		const optionsBtn = document.getElementById("options-button");
-		if (!optionsBtn || document.getElementById("stats-button")) return;
+        if (document.getElementById("stats-button")) return;
 
-		const statsBtn = document.createElement("button");
-		statsBtn.id = "stats-button";
-		statsBtn.type = "button";
-		statsBtn.textContent = "📊 Stats";
+        const dock = document.getElementById("plugin-dock");
+        if (!dock) return;
 
-		optionsBtn.parentNode.insertBefore(statsBtn, optionsBtn);
+        const statsBtn = document.createElement("button");
+        statsBtn.id = "stats-button";
+        statsBtn.type = "button";
+        statsBtn.textContent = "📊 Stats";
 
-		// Global delegation to prevent listener loss on screen DOM updates
-		document.body.addEventListener("click", (e) => {
-			if (e.target && e.target.id === "stats-button") {
-				e.stopPropagation();
-				e.preventDefault();
-				this.showStatsOverlay(app);
-			}
-		});
+        dock.appendChild(statsBtn);
+
+        document.body.addEventListener("click", (e) => {
+            if (e.target && e.target.id === "stats-button") {
+                e.stopPropagation();
+                e.preventDefault();
+                this.showStatsOverlay(app);
+            }
+        });
+    }
+
+    exportToCSV() {
+		const data = statsManager.getAggregateBreakdown();
+		if (data.length === 0) {
+			alert("No data available to export.");
+			return;
+		}
+
+		// Header includes specific word and English translation columns
+		const headers = [
+			"Word",
+			"English Meaning",
+			"Part of Speech",
+			"Form",
+			"Polite/Plain",
+			"Polarity",
+			"Accuracy (%)",
+			"Correct",
+			"Total",
+		];
+
+		const rows = data.map((item) => [
+			`"${item.wordBase}"`,
+			`"${item.english}"`,
+			`"${item.partOfSpeech}"`,
+			`"${item.conjugationType}"`,
+			`"${item.polite}"`,
+			`"${item.affirmative}"`,
+			item.percentage,
+			item.correct,
+			item.total,
+		]);
+
+		const csvContent =
+			"\uFEFF" + [headers.join(","), ...rows.map((row) => row.join(","))].join("\n"); // \uFEFF adds UTF-8 BOM for Japanese Kanji support in Excel
+
+		const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+
+        const now = new Date();
+        const pad = (num) => String(num).padStart(2, '0');
+
+        const timestamp = [
+            now.getFullYear(),
+            pad(now.getMonth() + 1),
+            pad(now.getDate()),
+            pad(now.getHours()),
+            pad(now.getMinutes()),
+            pad(now.getSeconds()),
+        ].join('');
+        
+		link.setAttribute("href", url);
+		link.setAttribute("download", `jconj_stats_${timestamp}.csv`);
+		link.style.visibility = "hidden";
+
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
 	}
 
 	showStatsOverlay(app) {
@@ -107,7 +170,7 @@ export class StatsPlugin {
 
 		document.getElementById("export-csv-btn").addEventListener("click", (evt) => {
 			evt.stopPropagation();
-			statsManager.exportToCSV();
+			this.exportToCSV();
 		});
 
 		document.getElementById("reset-stats-btn").addEventListener("click", (evt) => {

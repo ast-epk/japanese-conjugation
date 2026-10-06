@@ -1,0 +1,11 @@
+/* Isolated viewport container for extension buttons */
+#plugin-dock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    width: 100%;
+}

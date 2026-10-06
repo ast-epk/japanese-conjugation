@@ -1,0 +1,93 @@
+/* src/plugins/statsPlugin.css */
+
+#stats-button {
+    float: right;
+    color: var(--whiteTextColor);
+    background: #3f3f3f;
+    border: none;
+    border-radius: .4rem;
+    margin-right: -.27rem;
+    padding: .18rem .27rem .18rem .55rem;
+    font-size: .73rem;
+    box-shadow: 0 .045rem #232323, .045rem 0 #232323, .09rem .045rem #232323, .045rem .09rem #232323, .136rem .09rem #232323, .09rem .136rem #232323;
+}
+
+#stats-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+.stats-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.stats-modal-content {
+  background: #222;
+  color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 650px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.stats-table th, 
+.stats-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+.stats-table tr.low-accuracy {
+  color: #ff6b6b;
+}
+
+.stats-action-btn {
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.stats-action-btn:hover {
+  background: #444;
+}
+
+.stats-action-btn.danger {
+  background: #8b0000;
+  border-color: #a00000;
+}
+
+.stats-action-btn.danger:hover {
+  background: #a50000;
+}
+
+.stats-action-btn.primary {
+  background: #0056b3;
+  border-color: #0062cc;
+}
+
+.stats-action-btn.primary:hover {
+  background: #0069d9;
+}
