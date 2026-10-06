@@ -1,0 +1,22 @@
+/* src/plugins/audioPlugin.css */
+
+#audio-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e8e8e8;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#audio-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+#audio-toggle-btn.muted {
+  opacity: 0.5;
+  text-decoration: line-through;
+}

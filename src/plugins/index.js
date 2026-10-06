@@ -4,7 +4,7 @@ import { eventBus } from "../eventBus.js";
 
 // 1. Import all plugins you want active
 import { StatsPlugin } from "./statsPlugin.js";
-// import { AudioPlugin } from "./audioPlugin.js";
+import { AudioPlugin } from "./audioPlugin.js";
 // import { AnkiExportPlugin } from "./ankiExportPlugin.js";
 
 function createPluginDock() {
@@ -25,7 +25,7 @@ function createPluginDock() {
 
 const plugins = [
 	new StatsPlugin(),
-	// new AudioPlugin(),
+	new AudioPlugin(),
 	// new AnkiExportPlugin(),
 ];
 
