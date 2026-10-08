@@ -1,0 +1,20 @@
+{
+  "u": "う-verb",
+  "ru": "る-verb",
+  "irv": "Irregular",
+  "ira": "Irregular",
+  "i": "い-adjective",
+  "na": "な-adjective",
+  "ichidan": "う-verb",
+  "godan": "る-verb",
+  "irr_verb": "Irregular",
+  "irr_adj": "Irregular",
+  "i_adj": "イ-adjective",
+  "na_adj": "ナ-adjective",
+  "mizenkei": "未然形",
+  "renyoukei": "連用形",
+  "shuushikei": "終止形",
+  "rentaikei": "連体形",
+  "kateikei": "仮定形",
+  "meireikei": "命令形"
+}

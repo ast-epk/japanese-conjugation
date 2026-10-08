@@ -3,7 +3,7 @@ import "./index.css";
 import { eventBus } from "../eventBus.js";
 
 // 1. Import all plugins you want active
-import { StatsPlugin } from "./statsPlugin.js";
+import { StatsPlugin } from "./stats/statsPlugin.js";
 import { AudioPlugin } from "./audioPlugin.js";
 // import { AnkiExportPlugin } from "./ankiExportPlugin.js";
 

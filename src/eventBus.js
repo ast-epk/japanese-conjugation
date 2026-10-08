@@ -1,6 +1,6 @@
 // src/eventBus.js
 
-class EventBus {
+export class EventBus {
   constructor() {
     this.listeners = {};
   }
