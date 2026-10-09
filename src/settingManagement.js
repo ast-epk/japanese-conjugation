@@ -4,7 +4,7 @@ import {
 	PARTS_OF_SPEECH,
 } from "./constants.js";
 import { MaxScoreObject } from "./main.js";
-import { toggleDisplayNone } from "./utils.js";
+import { toggleDisplayNone } from "./modules/utils.js";
 
 // Enum for radio options that conditionally show/hide UI elements
 export const CONDITIONAL_UI_TIMINGS = Object.freeze({

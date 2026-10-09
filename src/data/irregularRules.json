@@ -1,0 +1,94 @@
+{
+  "iku": {
+    "bases": ["行く", "いく"],
+    "fallbackType": "godan",
+    "overrides": {
+      "te": { "all": "+って" },
+      "past": { "aff_plain": "+った" }
+    }
+  },
+  "aru": {
+    "bases": ["ある"],
+    "fallbackType": "godan",
+    "overrides": {
+      "present": {
+        "neg_plain": "ない",
+        "neg_polite": ["ありません", "ないです"]
+      },
+      "past": {
+        "neg_plain": "なかった",
+        "neg_polite": ["ありませんでした", "なかったです"]
+      },
+      "te": { "all": "あって" }
+    }
+  },
+  "kuru": {
+    "bases": ["くる", "来る", "こる"],
+    "fallbackType": "ichidan",
+    "overrides": {
+      "present": {
+        "aff_polite": "きます",
+        "aff_plain": "くる",
+        "neg_polite": ["きません", "こないです"],
+        "neg_plain": "こない"
+      },
+      "past": {
+        "aff_polite": "きました",
+        "aff_plain": "きた",
+        "neg_polite": ["きませんでした", "こなかったです"],
+        "neg_plain": "こなかった"
+      },
+      "te": { "all": "きて" },
+      "volitional": { "aff_polite": "きましょう", "aff_plain": "こよう" },
+      "imperative": { "all": "こい" }
+    }
+  },
+  "suru": {
+    "bases": ["する"],
+    "fallbackType": "ichidan",
+    "overrides": {
+      "present": {
+        "all": ["する", "します", "しない", "しません"],
+        "aff_plain": "する",
+        "aff_polite": "します",
+        "neg_plain": "しない",
+        "neg_polite": ["しません", "しないです"]
+      },
+      "past": {
+        "all": ["した", "しました", "しなかった", "しませんでした"],
+        "aff_plain": "した",
+        "aff_polite": "しました",
+        "neg_plain": "しなかった",
+        "neg_polite": ["しませんでした", "しなかったです"]
+      },
+      "te": { "all": "して" },
+      "volitional": {
+        "all": ["しよう", "しましょう"],
+        "aff_plain": "しよう",
+        "aff_polite": "しましょう"
+      },
+      "passive": {
+        "all": "される",
+        "aff_plain": "される",
+        "aff_polite": "されます",
+        "neg_plain": "されない",
+        "neg_polite": "されません"
+      },
+      "causative": {
+        "all": "させる",
+        "aff_plain": "させる",
+        "aff_polite": "させます",
+        "neg_plain": "させない",
+        "neg_polite": "させません"
+      },
+      "potential": {
+        "all": ["できる", "出来ます"],
+        "aff_plain": ["できる", "出来る"],
+        "aff_polite": ["できます", "出来ます"],
+        "neg_plain": ["できない", "出来ない"],
+        "neg_polite": ["できません", "出来ません"]
+      },
+      "imperative": { "all": ["しろ", "せよ"] }
+    }
+  }
+}
