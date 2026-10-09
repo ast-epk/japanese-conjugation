@@ -1,0 +1,153 @@
+{
+  "godan": {
+    "present": {
+      "aff_plain": { "stem": "dict", "suffix": "" },
+      "aff_polite": { "stem": "i", "suffix": "ます" },
+      "neg_plain": { "stem": "a", "suffix": "ない" },
+      "neg_polite": [
+        { "stem": "i", "suffix": "ません" },
+        { "stem": "a", "suffix": "ないです" }
+      ]
+    },
+    "past": {
+      "aff_plain": { "stem": "pastPlain", "suffix": "" },
+      "aff_polite": { "stem": "i", "suffix": "ました" },
+      "neg_plain": { "stem": "a", "suffix": "なかった" },
+      "neg_polite": [
+        { "stem": "i", "suffix": "ませんでした" },
+        { "stem": "a", "suffix": "なかったです" }
+      ]
+    },
+    "te": {
+      "all": { "stem": "te", "suffix": "" }
+    },
+    "volitional": {
+      "aff_plain": { "stem": "o", "suffix": "う" },
+      "aff_polite": { "stem": "i", "suffix": "ましょう" },
+      "neg_plain": [
+        { "stem": "a", "suffix": "ないだろう" },
+        { "stem": "dict", "suffix": "まい" }
+      ],
+      "neg_polite": [
+        { "stem": "i", "suffix": "ましょう" },
+        { "stem": "a", "suffix": "ないでしょう" }
+      ]
+    },
+    "passive": {
+      "aff_plain": { "stem": "a", "suffix": "れる" },
+      "aff_polite": { "stem": "a", "suffix": "れます" },
+      "neg_plain": { "stem": "a", "suffix": "れない" },
+      "neg_polite": { "stem": "a", "suffix": "れません" }
+    },
+    "causative": {
+      "aff_plain": { "stem": "a", "suffix": "せる" },
+      "aff_polite": { "stem": "a", "suffix": "せます" },
+      "neg_plain": { "stem": "a", "suffix": "せない" },
+      "neg_polite": { "stem": "a", "suffix": "せません" }
+    },
+    "potential": {
+      "aff_plain": { "stem": "e", "suffix": "る" },
+      "aff_polite": { "stem": "e", "suffix": "ます" },
+      "neg_plain": { "stem": "e", "suffix": "ない" },
+      "neg_polite": { "stem": "e", "suffix": "ません" }
+    },
+    "imperative": {
+      "all": { "stem": "e", "suffix": "" }
+    },
+    "causativepassive": {
+      "aff_plain": [
+        { "stem": "a", "suffix": "せられる" },
+        { "stem": "a", "suffix": "される" }
+      ],
+      "aff_polite": [
+        { "stem": "a", "suffix": "せられます" },
+        { "stem": "a", "suffix": "されます" }
+      ],
+      "neg_plain": [
+        { "stem": "a", "suffix": "せられない" },
+        { "stem": "a", "suffix": "されない" }
+      ],
+      "neg_polite": [
+        { "stem": "a", "suffix": "せられません" },
+        { "stem": "a", "suffix": "されません" }
+      ]
+    }
+  },
+  "ichidan": {
+    "present": {
+      "aff_plain": { "stem": "dict", "suffix": "" },
+      "aff_polite": { "stem": "ichidanStem", "suffix": "ます" },
+      "neg_plain": { "stem": "ichidanStem", "suffix": "ない" },
+      "neg_polite": [
+        { "stem": "ichidanStem", "suffix": "ません" },
+        { "stem": "ichidanStem", "suffix": "ないです" }
+      ]
+    },
+    "past": {
+      "aff_plain": { "stem": "ichidanStem", "suffix": "た" },
+      "aff_polite": { "stem": "ichidanStem", "suffix": "ました" },
+      "neg_plain": { "stem": "ichidanStem", "suffix": "なかった" },
+      "neg_polite": [
+        { "stem": "ichidanStem", "suffix": "ませんでした" },
+        { "stem": "ichidanStem", "suffix": "なかったです" }
+      ]
+    },
+    "te": {
+      "all": { "stem": "ichidanStem", "suffix": "て" }
+    },
+    "volitional": {
+      "aff_plain": { "stem": "ichidanStem", "suffix": "よう" },
+      "aff_polite": { "stem": "ichidanStem", "suffix": "ましょう" },
+      "neg_plain": [
+        { "stem": "ichidanStem", "suffix": "ないだろう" },
+        { "stem": "dict", "suffix": "まい" }
+      ],
+      "neg_polite": [
+        { "stem": "ichidanStem", "suffix": "ましょう" },
+        { "stem": "ichidanStem", "suffix": "ないでしょう" }
+      ]
+    },
+    "passive": {
+      "aff_plain": { "stem": "ichidanStem", "suffix": "られる" },
+      "aff_polite": { "stem": "ichidanStem", "suffix": "られます" },
+      "neg_plain": { "stem": "ichidanStem", "suffix": "られない" },
+      "neg_polite": { "stem": "ichidanStem", "suffix": "られません" }
+    },
+    "causative": {
+      "aff_plain": { "stem": "ichidanStem", "suffix": "させる" },
+      "aff_polite": { "stem": "ichidanStem", "suffix": "させます" },
+      "neg_plain": { "stem": "ichidanStem", "suffix": "させない" },
+      "neg_polite": { "stem": "ichidanStem", "suffix": "させません" }
+    },
+    "potential": {
+      "aff_plain": [
+        { "stem": "ichidanStem", "suffix": "られる" },
+        { "stem": "ichidanStem", "suffix": "れる" }
+      ],
+      "aff_polite": [
+        { "stem": "ichidanStem", "suffix": "られます" },
+        { "stem": "ichidanStem", "suffix": "れます" }
+      ],
+      "neg_plain": [
+        { "stem": "ichidanStem", "suffix": "られない" },
+        { "stem": "ichidanStem", "suffix": "れない" }
+      ],
+      "neg_polite": [
+        { "stem": "ichidanStem", "suffix": "られません" },
+        { "stem": "ichidanStem", "suffix": "れません" }
+      ]
+    },
+    "imperative": {
+      "all": [
+        { "stem": "ichidanStem", "suffix": "ろ" },
+        { "stem": "ichidanStem", "suffix": "よ" }
+      ]
+    },
+    "causativepassive": {
+      "aff_plain": { "stem": "ichidanStem", "suffix": "させられる" },
+      "aff_polite": { "stem": "ichidanStem", "suffix": "させられます" },
+      "neg_plain": { "stem": "ichidanStem", "suffix": "させられない" },
+      "neg_polite": { "stem": "ichidanStem", "suffix": "させられません" }
+    }
+  }
+}

@@ -575,7 +575,7 @@ export function convertMaxScoreObjectsToV2(maxScoreObjects) {
 }
 
 export const showEmojis = function (show) {
-	document.getElementById("conjugation-inquery-text").className = show
+	document.getElementById("conjugation-inquiry-text").className = show
 		? ""
 		: "hide-emojis";
 };

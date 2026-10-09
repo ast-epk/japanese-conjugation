@@ -24,7 +24,7 @@ describe("Headless Stats Manager", () => {
 
 		const mockWord = {
 			wordJSON: { kanji: "飲む", type: "godan", eng: "drink" },
-			conjugation: { type: "Present", polite: true, affirmative: true },
+			conjugation: { type: "present", polite: true, affirmative: true },
 		};
 
 		statsManager.recordAnswer(mockWord, true);
@@ -84,3 +84,4 @@ describe("Headless EventBus & Stats Integration", () => {
     assert.equal(targetItem.total, 3);
   });
 });
+

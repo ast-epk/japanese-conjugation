@@ -45,7 +45,7 @@ function conjugationInquiryFormatting(conjugation) {
 	let newString = "";
 
 	function createInquiryText(text, emoji) {
-		return `<div class="conjugation-Inquiry"><div class="Inquiry-emoji">${emoji}</div><div class="Inquiry-text">${text}</div></div> `;
+		return `<div class="conjugation-inquiry"><div class="inquiry-emoji">${emoji}</div><div class="inquiry-text">${text}</div></div> `;
 	}
 
 	if (conjugation.type === CONJUGATION_TYPES.past) {
@@ -112,7 +112,7 @@ function updateCurrentWord(word) {
 	document.getElementById("translation").textContent = word.wordJSON.eng;
 	// Set verb-type to a non-breaking space to preserve vertical height
 	document.getElementById("verb-type").textContent = "\u00A0";
-	document.getElementById("conjugation-Inquiry-text").innerHTML =
+	document.getElementById("conjugation-inquiry-text").innerHTML = 
 		conjugationInquiryFormatting(word.conjugation);
 }
 

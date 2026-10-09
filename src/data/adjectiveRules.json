@@ -1,0 +1,60 @@
+{
+  "i_adj": {
+    "present": {
+      "aff_plain": { "suffix": "い" },
+      "aff_polite": { "suffix": "いです" },
+      "neg_plain": { "suffix": "くない" },
+      "neg_polite": [
+        { "suffix": "くないです" },
+        { "suffix": "くありません" }
+      ]
+    },
+    "past": {
+      "aff_plain": { "suffix": "かった" },
+      "aff_polite": { "suffix": "かったです" },
+      "neg_plain": { "suffix": "くなかった" },
+      "neg_polite": [
+        { "suffix": "くなかったです" },
+        { "suffix": "くありませんでした" }
+      ]
+    },
+    "te": {
+      "all": { "suffix": "くて" }
+    },
+    "adverb": {
+      "all": { "suffix": "く" }
+    }
+  },
+  "na_adj": {
+    "present": {
+      "aff_plain": { "suffix": "だ" },
+      "aff_polite": { "suffix": "です" },
+      "neg_plain": [
+        { "suffix": "じゃない" },
+        { "suffix": "ではない" }
+      ],
+      "neg_polite": [
+        { "suffix": "じゃないです" },
+        { "suffix": "ではありません" }
+      ]
+    },
+    "past": {
+      "aff_plain": { "suffix": "だった" },
+      "aff_polite": { "suffix": "でした" },
+      "neg_plain": [
+        { "suffix": "じゃなかった" },
+        { "suffix": "ではなかった" }
+      ],
+      "neg_polite": [
+        { "suffix": "じゃなかったです" },
+        { "suffix": "ではありませんでした" }
+      ]
+    },
+    "te": {
+      "all": { "suffix": "で" }
+    },
+    "adverb": {
+      "all": { "suffix": "に" }
+    }
+  }
+}

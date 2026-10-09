@@ -1,3 +1,4 @@
+import regularRules from "../data/regularRules.json" with { type: "json" };
 import irregularRules from "../data/irregularRules.json" with { type: "json" };
 import kanaShifts from "../data/kanaShifts.json" with { type: "json" };
 import { CONJUGATION_TYPES } from "../constants.js";
@@ -61,7 +62,7 @@ export function evaluateAnswer(validAnswers, userInput) {
 }
 
 /** Normalizes Japanese/English conjugation type names to JSON rule keys */
-function normalizeKey(str) {
+export function normalizeKey(str) {
 	if (!str) return "";
 	const cleaned = String(str)
 		.toLowerCase()
@@ -118,9 +119,10 @@ export function applyForm(stems, suffixes, affirmative, polite) {
 export function conjugateStandard(base, type, conjugationType, aff, pol) {
 	const lastChar = base.slice(-1);
 	const stem = type === "godan" ? shiftKana(base, "i") : base.slice(0, -1);
+	const normType = normalizeKey(conjugationType);
 
-	switch (conjugationType) {
-		case CONJUGATION_TYPES.present: {
+	switch (normType) {
+		case "present": {
 			const negStem = type === "godan" ? shiftKana(base, "a") + "ない" : stem + "ない";
 			return applyForm("", {
 				aff_polite: stem + "ます",
@@ -130,7 +132,7 @@ export function conjugateStandard(base, type, conjugationType, aff, pol) {
 			}, aff, pol);
 		}
 
-		case CONJUGATION_TYPES.past: {
+		case "past": {
 			const plainPast = type === "godan" 
 				? base.slice(0, -1) + kanaShifts.pastPlain[lastChar]
 				: stem + "た";
@@ -146,18 +148,28 @@ export function conjugateStandard(base, type, conjugationType, aff, pol) {
 			}, aff, pol);
 		}
 
-		case CONJUGATION_TYPES.te: {
+		case "te": {
 			return type === "godan" 
 				? base.slice(0, -1) + kanaShifts.te[lastChar]
 				: stem + "て";
 		}
 
-		case CONJUGATION_TYPES.volitional: {
-			if (pol) return stem + "ましょう";
-			return type === "godan" ? shiftKana(base, "o") + "う" : stem + "よう";
+		case "volitional": {
+			const affPlain = type === "godan" ? shiftKana(base, "o") + "う" : stem + "よう";
+			const negPlain = type === "godan" ? shiftKana(base, "a") + "ないだろう" : stem + "ないだろう";
+			const negPolite = type === "godan" 
+				? [stem + "ましょう", shiftKana(base, "a") + "ないでしょう"] 
+				: [stem + "ましょう", stem + "ないでしょう"];
+
+			return applyForm("", {
+				aff_plain: affPlain,
+				aff_polite: stem + "ましょう",
+				neg_plain: [negPlain, base + "まい"],
+				neg_polite: negPolite,
+			}, aff, pol);
 		}
 
-		case CONJUGATION_TYPES.passive: {
+		case "passive": {
 			const root = shiftKana(base, "a");
 			return applyForm(root, {
 				aff_plain: "れる",
@@ -167,7 +179,7 @@ export function conjugateStandard(base, type, conjugationType, aff, pol) {
 			}, aff, pol);
 		}
 
-		case CONJUGATION_TYPES.causative: {
+		case "causative": {
 			const root = type === "ichidan" ? stem + "さ" : shiftKana(base, "a");
 			return applyForm(root, {
 				aff_plain: "せる",
@@ -177,7 +189,7 @@ export function conjugateStandard(base, type, conjugationType, aff, pol) {
 			}, aff, pol);
 		}
 
-		case CONJUGATION_TYPES.potential: {
+		case "potential": {
 			const roots = type === "godan" 
 				? [shiftKana(base, "e")] 
 				: [stem + "られ", stem + "れ"];
@@ -190,14 +202,14 @@ export function conjugateStandard(base, type, conjugationType, aff, pol) {
 			}, aff, pol);
 		}
 
-		case CONJUGATION_TYPES.imperative: {
+		case "imperative": {
 			if (type === "ichidan") {
 				return [stem + "ろ", stem + "よ"];
 			}
 			return shiftKana(base, "e");
 		}
 
-		case CONJUGATION_TYPES.causativePassive: {
+		case "causativepassive": {
 			const roots = [];
 			if (type === "godan") {
 				const root = shiftKana(base, "a");
@@ -226,76 +238,42 @@ export function conjugateStandard(base, type, conjugationType, aff, pol) {
 /**
  * Main Conjugation Router.
  */
-export function conjugateVerb(baseWord, type, conjugationType, aff, pol, groupKey = null, debug = false) {
-	if (debug == true) {
-    console.log("\n--- [DEBUG conjugateVerb] ---");
-    console.log(`INPUT -> baseWord: "${baseWord}", type: "${type}", conjugationType: "${conjugationType}", aff: ${aff}, pol: ${pol}, groupKey: ${groupKey}`);
+export function conjugateVerb(baseWord, type, conjugationType, aff, pol, groupKey = null) {
+	const { ruleKey, matchedBase } = resolveIrregular(baseWord, groupKey);
+	const rule = irregularRules[ruleKey];
 
-    const indexedKey = IRREGULAR_BASE_INDEX.get(baseWord);
-    const ruleKey = groupKey || indexedKey;
-    console.log(`LOOKUP -> indexedKey: "${indexedKey}", resolved ruleKey: "${ruleKey}"`);
+	if (rule) {
+		const overrideMap = findOverrideMap(rule, conjugationType);
 
-    const rule = irregularRules[ruleKey];
-    console.log(`RULE FOUND ->`, rule ? `Key "${ruleKey}" exists in irregularRules.json` : "NONE (Undefined rule)");
+		if (overrideMap) {
+			const formKey = (aff === null || aff === undefined || pol === null || pol === undefined)
+				? "all"
+				: `${aff ? "aff" : "neg"}_${pol ? "polite" : "plain"}`;
 
-    if (rule) {
-      const overrideMap = findOverrideMap(rule, conjugationType);
-      console.log(`OVERRIDE MAP -> normalizeKey("${conjugationType}") = "${normalizeKey(conjugationType)}"`);
-      console.log(`OVERRIDE MAP RESULT ->`, overrideMap || "NULL (No matching key in rule.overrides)");
+			// Strictly check formKey or 'all' — do NOT fall back to Object.values(overrideMap)[0]
+			const override = overrideMap[formKey] ?? overrideMap.all;
 
-      if (overrideMap) {
-        const formKey = (aff === null || aff === undefined)
-          ? "all"
-          : `${aff ? "aff" : "neg"}_${pol ? "polite" : "plain"}`;
+			if (override) {
+				const prefix = baseWord.slice(0, baseWord.length - matchedBase.length);
+				const process = (val) => {
+					let conjugatedPart = val;
+					if (val.startsWith("+")) {
+						const matchedStem = matchedBase.slice(0, -1);
+						conjugatedPart = matchedStem + val.slice(1);
+					}
+					return prefix + conjugatedPart;
+				};
 
-        console.log(`FORM KEY CALCULATED -> "${formKey}"`);
-        const override = overrideMap[formKey] || overrideMap.all;
-        console.log(`OVERRIDE MATCHED ->`, override || "UNDEFINED (Form key missing inside overrideMap)");
+				return Array.isArray(override) ? override.map(process) : process(override);
+			}
+		}
 
-        if (override) {
-          const process = (val) => val.startsWith("+") ? baseWord.slice(0, -1) + val.slice(1) : val;
-          const result = Array.isArray(override) ? override.map(process) : process(override);
-          console.log(`>>> RETURNING OVERRIDE ->`, result);
-          return result;
-        }
-      }
+		// Fall back to standard engine (Godan) when polite form is not explicitly overridden
+		return conjugateStandard(baseWord, rule.fallbackType || "godan", conjugationType, aff, pol);
+	}
 
-      console.log(`>>> FALLING BACK to conjugateStandard with fallbackType: "${rule.fallbackType || 'godan'}"`);
-      return conjugateStandard(baseWord, rule.fallbackType || "godan", conjugationType, aff, pol);
-    }
-
-    console.log(`>>> FALLING BACK to conjugateStandard with original type: "${type}"`);
-    return conjugateStandard(baseWord, type, conjugationType, aff, pol);
-  } else {
-      const indexedKey = IRREGULAR_BASE_INDEX.get(baseWord);
-      const ruleKey = groupKey || indexedKey;
-
-      const rule = irregularRules[ruleKey];
-
-      if (rule) {
-        const overrideMap = findOverrideMap(rule, conjugationType);
-
-        if (overrideMap) {
-          const formKey = (aff === null || aff === undefined || pol === null || pol === undefined)
-            ? "all"
-            : `${aff ? "aff" : "neg"}_${pol ? "polite" : "plain"}`;
-
-          // Try specific formKey first, fall back to 'all', or default to first available entry
-          const override = overrideMap[formKey] ?? overrideMap.all ?? Object.values(overrideMap)[0];
-
-          if (override) {
-            const process = (val) => val.startsWith("+") ? baseWord.slice(0, -1) + val.slice(1) : val;
-            return Array.isArray(override) ? override.map(process) : process(override);
-          }
-        }
-
-        return conjugateStandard(baseWord, rule.fallbackType || "godan", conjugationType, aff, pol);
-      }
-    //fallback
-    return conjugateStandard(baseWord, type, conjugationType, aff, pol);
-  }
+	return conjugateStandard(baseWord, type, conjugationType, aff, pol);
 }
-
 /**
  * Adjective Conjugator for い-adjectives, な-adjectives, and irregular adjectives (いい / 良い).
  */

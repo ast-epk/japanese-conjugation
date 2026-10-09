@@ -151,7 +151,7 @@ span.rt {
 	margin-bottom: 0.15rem;
 }
 
-#conjugation-inquery-text {
+#conjugation-inquiry-text {
 	font-size: 1.3rem;
 	margin-top: 0.8rem;
 	margin-bottom: 0.5rem;
@@ -397,7 +397,7 @@ h2 {
 
 .hide-furigana .rt,
 .display-none,
-.hide-emojis .inquery-emoji {
+.hide-emojis .inquiry-emoji {
 	display: none !important;
 }
 
@@ -428,16 +428,16 @@ hr {
 	text-align: center;
 }
 
-.conjugation-inquery {
+.conjugation-inquiry {
 	display: inline-block;
 }
 
-.inquery-emoji {
+.inquiry-emoji {
 	font-size: 0.7rem;
 	line-height: 1.1;
 }
 
-.inquery-text {
+.inquiry-text {
 	line-height: 1.1;
 }
 
@@ -512,7 +512,7 @@ On larger screens, we allow verb-type and status-container to always take up scr
 	#input-container {
 		margin-bottom: 0.4rem;
 	}
-	#conjugation-inquery-text {
+	#conjugation-inquiry-text {
 		margin-top: 1rem;
 	}
 	#status-container {
